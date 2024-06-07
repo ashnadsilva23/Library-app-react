@@ -14,8 +14,8 @@ function App() {
       <Route path='/search' element={<SearchBook/>}/>
       <Route path='/delete' element={<DeleteBook/>}/>
       <Route path='/view' element={<ViewBooks/>}/>
-      </Routes></
-      BrowserRouter>
+      </Routes>
+      </BrowserRouter>
   );
 }
 
