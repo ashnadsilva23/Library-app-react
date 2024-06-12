@@ -1,22 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
+import axios from 'axios'
 
 const ViewBooks = () => {
     const[data,changeData]=useState(
         [{
 
-            "title":"abcd",
-            "category":"english",
-            "publishedYear":"1890",
-            "author":"apj",
-            "description":"books",
-            "distributer":"Dc Books",
-            "publisher":"xyz",
-            "price":"1200"
+            "title":"",
+            "category":"",
+            "publishedYear":"",
+            "author":"",
+            "description":"",
+            "distributer":"",
+            "publisher":"",
+            "price":""
             
         }]
 
     )
+    const fetchData = () => {
+        axios.post("http://localhost:8080/view").then(
+            (response) => {
+                changeData(response.data)
+            }
+        ).catch(
+            (error) => {
+                console.log(error.message)
+                alert(error.message)
+            }
+        ).finally()
+
+    }
+    useEffect(() => { fetchData() }, [])
     return (
         <div>
             <Navbar/>

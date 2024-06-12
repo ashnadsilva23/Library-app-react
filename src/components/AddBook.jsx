@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
+import axios from 'axios'
 
 const AddBook = () => {
-    
 
     const[data,changeData]=useState(
+        [
         {
 
             "title":"",
@@ -16,23 +17,46 @@ const AddBook = () => {
             "publisher":"",
             "price":""
             
-        }
+        }]
 
     )
+
+    
 const inputHandler=(event)=>
     {
         console.log(data)
         changeData({...data,[event.target.name]:event.target.value})
     }
-    const readValue=()=>
-        {
-            console.log(data)
-        }
+    const readValue = () => {
+
+        console.log(data)
+        if(data.passward==data.confirmpswd)
+            {
+        axios.post("http://localhost:8080/", data).then(
+            (response) => {
+                console.log(response.data)
+                if (response.data.status == "success") {
+                    alert("successfully added")
+                }
+                else {
+                    alert("failed")
+                }
+                
+            }
+        )
+    }
+    else{
+        alert("check password")
+    }
+    }
   return (
     <div>
         <Navbar/>
+        <h1 align="center">Add Book</h1><br></br><br></br>
+
         <div className="container">
-            <h1 align="center">Add Book</h1><br></br><br></br>
+        <div className="card" >
+        <div className="card-body">
             <div className="row">
                 <div className="col col-12 col-sm-12 col-md-12 col-lg-12 vol-xl-12 col-xxl-12">
                     <div className="row g-3">
@@ -78,12 +102,15 @@ const inputHandler=(event)=>
                         <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                             <button className="btn btn-success" onClick={readValue}>Add Book</button>
 
+
                         </div>
                        
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
   )
 }
